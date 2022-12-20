@@ -1,0 +1,27 @@
+Description: disable test requiring network access
+Author: Cédric Boutillier <boutil@debian.org>
+Bug-Debian: http://bugs.debian.org/710940
+Last-Update: 2019-08-12
+
+--- a/tests/tc_curl_easy.rb
++++ b/tests/tc_curl_easy.rb
+@@ -1059,7 +1059,7 @@
+     assert_equal 'COPY', curl.body_str
+   end
+ 
+-  def test_easy_http_verbs_must_respond_to_str
++  def est_easy_http_verbs_must_respond_to_str
+     # issue http://github.com/taf2/curb/issues#issue/45
+     assert_nothing_raised do
+       c = Curl::Easy.new ; c.url = 'http://example.com' ; c.http(:get)
+--- a/tests/tc_curl_multi.rb
++++ b/tests/tc_curl_multi.rb
+@@ -8,7 +8,7 @@
+ 
+   # for https://github.com/taf2/curb/issues/277
+   # must connect to an external
+-  def test_connection_keepalive
++  def est_connection_keepalive
+     # 0123456 default & reserved RubyVM. It will probably include 7 from Dir.glob
+     lsof=`/usr/bin/which lsof`.strip
+     open_fds = lambda do 

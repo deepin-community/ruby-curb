@@ -1,0 +1,186 @@
+ruby-curb (0.9.11-deepin1) unstable; urgency=medium
+
+  * Rebuild
+
+ -- Deepin Packages Builder <packages@deepin.org>  Fri, 11 Nov 2022 18:04:25 +0800
+
+ruby-curb (0.9.11-2) unstable; urgency=medium
+
+  * Team upload
+
+  [ Jenkins ]
+  * Apply multi-arch hints. + ruby-curb: Add Multi-Arch: same.
+
+  [ Debian Janitor ]
+  * Wrap long lines in changelog entries: 0.9.11-1.
+  * Remove overrides for lintian tags that are no longer supported.
+  * Set upstream metadata fields: Bug-Submit.
+  * Update standards version to 4.5.1, no changes needed.
+
+  [ Cédric Boutillier ]
+  * Build-depend on ruby-webrick (Closes: #996211)
+  * Bump Standards-Version to 4.6.0 (no changes needed)
+
+ -- Cédric Boutillier <boutil@debian.org>  Wed, 27 Oct 2021 22:20:38 +0200
+
+ruby-curb (0.9.11-1) unstable; urgency=medium
+
+  * Team upload
+  * add Bug: metadata to 0004-Fix-broken-test-only-in-ruby-2.7.patch
+  * New upstream version 0.9.11
+  * add gbp.conf to gitattributes
+  * watch file to v4
+  * d/rules: gem install layout and check-dependencies flags
+  * d/control: Rules-Requires-Root to no, no explicit dependency on ruby
+    interpreter
+
+ -- Cédric Boutillier <boutil@debian.org>  Mon, 21 Dec 2020 15:07:09 +0100
+
+ruby-curb (0.9.10-2) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Set fields Upstream-Contact in debian/copyright.
+  * Remove obsolete fields Name, Contact from debian/upstream/metadata.
+
+  [ Thiago Ribeiro ]
+  * Fix broken test only in ruby 2.7
+  * Bump standard version to 4.5.0
+
+ -- Thiago Ribeiro <thiagitosouza@gmail.com>  Fri, 24 Jan 2020 18:19:34 -0300
+
+ruby-curb (0.9.10-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Cédric Boutillier ]
+  * New upstream version 0.9.10
+  * Refresh patches, remove fix_tests_curl_easy_7_62.patch applied upstream
+  * Trim trailing whitespace.
+  * Use versioned copyright format URI.
+  * Bump debhelper from old 11 to 12.
+  * Fix space/tab mix in copyright file
+  * Bump Standards-Version to 4.4.0 (no changes needed)
+
+   [ Utkarsh Gupta ]
+  * activate salsa-ci
+
+ -- Cédric Boutillier <boutil@debian.org>  Tue, 13 Aug 2019 22:46:23 +0200
+
+ruby-curb (0.9.7-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 0.9.7
+  * Fix FTBFS with curl 7.62.0 (Closes: #913404, #912908)
+    + adapt also tests to reflect the fact that libcurl includes now a header
+      in the file:// protocol with upstream commit after release
+      (fix_tests_curl_easy_7_62.patch)
+  * Refresh patches use-test-files-for-tests.patch and
+    disable_test_requiring_network.patch (offset)
+  * Bump Standards-Version to 4.2.1 (no changes needed)
+
+ -- Cédric Boutillier <boutil@debian.org>  Mon, 26 Nov 2018 21:53:16 +0100
+
+ruby-curb (0.9.6-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 0.9.6
+  * Use salsa.debian.org in Vcs-* fields
+  * Move debian/watch to gemwatch.debian.net
+  * Bump Standards-Version to 4.1.5 (no changes needed)
+  * Bump debhelper compatibility level to 11
+
+ -- Cédric Boutillier <boutil@debian.org>  Mon, 30 Jul 2018 18:42:07 +0200
+
+ruby-curb (0.9.4-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 0.9.4
+  * Refresh patches
+  * Set debhelper compatibility level to 10
+  * Bump Standards-Version to 4.1.1 (no changes needed)
+
+ -- Cédric Boutillier <boutil@debian.org>  Tue, 14 Nov 2017 15:37:37 +0100
+
+ruby-curb (0.9.3-1) unstable; urgency=medium
+
+  * Team upload
+  * Imported Upstream version 0.9.3
+  * Bump debhelper compatibility level to 9
+  * Remove version in the gem2deb build-dependency
+  * Use https:// in Vcs-* fields
+  * Bump Standards-Version to 3.9.8 (no changes needed)
+  * Run wrap-and-sort on packaging files
+  * Refresh disable_test_requiring_network.patch
+  * Set testsuite field in control file
+  * Add use-test-files-for-tests.patch to run tests with files that are
+    still around in autopkgtest environment
+
+ -- Cédric Boutillier <boutil@debian.org>  Mon, 06 Jun 2016 07:03:51 +0200
+
+ruby-curb (0.8.8-1) unstable; urgency=medium
+
+  * Team upload
+  * Imported Upstream version 0.8.8
+  * don't b-depend uselessly on ruby-rspec, b-depend on ruby-test-unit
+  * do not require Rspec task for tests
+  * Bump Standards-Version to 3.9.6 (no changes needed)
+
+ -- Cédric Boutillier <boutil@debian.org>  Sat, 02 May 2015 23:09:38 +0200
+
+ruby-curb (0.8.6-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ David Suárez ]
+  * New upstream version.
+  * Remove 'add-support-for-curl-7.33.0' patch; applied upstream.
+  * Refresh patches.
+  * debian/control: update Homepage.
+  * debian/ruby-curb.docs: update README filename.
+  * debian/changelog: default to medium urgency.
+  * debian/copyright: fix license short name.
+
+ -- David Suárez <david.sephirot@gmail.com>  Sun, 28 Sep 2014 21:52:35 +0200
+
+ruby-curb (0.8.5-3) unstable; urgency=low
+
+  * Bump gem2deb build dep to 0.7.5~
+    - Fix for #743671
+
+ -- Pirate Praveen <praveen@debian.org>  Mon, 14 Apr 2014 10:01:46 +0530
+
+ruby-curb (0.8.5-2) unstable; urgency=medium
+
+  * Bump standards version to 3.9.5
+  * Bump gem2deb dependency to 0.7.4~
+    - drop ruby1.9.1 and add ruby2.1
+
+ -- Pirate Praveen <praveen@debian.org>  Fri, 04 Apr 2014 14:45:58 +0530
+
+ruby-curb (0.8.5-1) unstable; urgency=low
+
+  * Team upload
+  * New upstream version
+  * Fix test segfault due to the wrong ruby version extension getting loaded
+    (Closes: #720256)
+  * Add support for curl 7.33.0. This fix a test failing due to some api
+    changes in the new curl version
+
+ -- David Suárez <david.sephirot@gmail.com>  Sun, 20 Oct 2013 11:59:36 +0200
+
+ruby-curb (0.8.3-2) unstable; urgency=low
+
+  * Team upload
+  * debian/patches: add disable_test_requiring_network.patch to deactivate
+    tests requiring network access (Closes: #710940)
+  * Add unapply-patches to local-options
+
+ -- Cédric Boutillier <boutil@debian.org>  Tue, 04 Jun 2013 11:23:26 +0200
+
+ruby-curb (0.8.3-1) unstable; urgency=low
+
+  * Initial release (Closes: #708427)
+
+ -- Praveen Arimbrathodiyil <praveen@debian.org>  Wed, 15 May 2013 23:07:43 +0530

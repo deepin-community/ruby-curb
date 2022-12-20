@@ -1,0 +1,106 @@
+Description: use files from tests/ instead of C files from ext/ for tests
+ because they are around when doing autopkgtest
+Author: Cédric Boutillier <boutil@debian.org>
+Forwarded: no
+Last-Update: 2019-08-12
+
+--- a/tests/helper.rb
++++ b/tests/helper.rb
+@@ -155,7 +155,7 @@
+           server = WEBrick::HTTPServer.new :Port => port, :DocumentRoot => File.expand_path(File.dirname(__FILE__))
+ 
+           server.mount(servlet.path, servlet)
+-          server.mount("/ext", WEBrick::HTTPServlet::FileHandler, File.join(File.dirname(__FILE__),'..','ext'))
++          server.mount("/tests", WEBrick::HTTPServlet::FileHandler, File.join(File.dirname(__FILE__),'..','tests'))
+ 
+           trap("INT") { server.shutdown }
+           GC.start
+@@ -171,7 +171,7 @@
+         @server = WEBrick::HTTPServer.new :Port => port, :DocumentRoot => File.expand_path(File.dirname(__FILE__))
+ 
+         @server.mount(servlet.path, servlet)
+-        @server.mount("/ext", WEBrick::HTTPServlet::FileHandler, File.join(File.dirname(__FILE__),'..','ext'))
++        @server.mount("/tests", WEBrick::HTTPServlet::FileHandler, File.join(File.dirname(__FILE__),'..','tests'))
+         queue = Queue.new # synchronize the thread startup to the main thread
+ 
+         @test_thread = Thread.new { queue << 1; @server.start }
+--- a/tests/tc_curl_download.rb
++++ b/tests/tc_curl_download.rb
+@@ -8,31 +8,31 @@
+   end
+ 
+   def test_download_url_to_file_via_string
+-    dl_url = "http://127.0.0.1:9129/ext/curb_easy.c"
++    dl_url = "http://127.0.0.1:9129/tests/unittests.rb"
+     dl_path = File.join(Dir::tmpdir, "dl_url_test.file")
+ 
+     Curl::Easy.download(dl_url, dl_path)
+     assert File.exist?(dl_path)
+-    assert_equal File.read(File.join(File.dirname(__FILE__), '..','ext','curb_easy.c')), File.read(dl_path)
++    assert_equal File.read(File.join(File.dirname(__FILE__), '..','tests','unittests.rb')), File.read(dl_path)
+   ensure
+     File.unlink(dl_path) if File.exist?(dl_path)
+   end
+ 
+   def test_download_url_to_file_via_file_io
+-    dl_url = "http://127.0.0.1:9129/ext/curb_easy.c"
++    dl_url = "http://127.0.0.1:9129/tests/unittests.rb"
+     dl_path = File.join(Dir::tmpdir, "dl_url_test.file")
+     io = File.open(dl_path, 'wb')
+ 
+     Curl::Easy.download(dl_url, io)
+     assert io.closed?
+     assert File.exist?(dl_path)
+-    assert_equal File.read(File.join(File.dirname(__FILE__), '..','ext','curb_easy.c')), File.read(dl_path)
++    assert_equal File.read(File.join(File.dirname(__FILE__), '..','tests','unittests.rb')), File.read(dl_path)
+   ensure
+     File.unlink(dl_path) if File.exist?(dl_path)
+   end
+ 
+   def test_download_url_to_file_via_io
+-    dl_url = "http://127.0.0.1:9129/ext/curb_easy.c"
++    dl_url = "http://127.0.0.1:9129/tests/unittests.rb"
+     dl_path = File.join(Dir::tmpdir, "dl_url_test.file")
+     reader, writer = IO.pipe
+ 
+@@ -56,7 +56,7 @@
+     end
+ 
+     assert File.exist?(dl_path)
+-    assert_equal File.read(File.join(File.dirname(__FILE__), '..','ext','curb_easy.c')), File.read(dl_path)
++    assert_equal File.read(File.join(File.dirname(__FILE__), '..','tests','unittests.rb')), File.read(dl_path)
+   ensure
+     File.unlink(dl_path) if File.exist?(dl_path)
+   end
+--- a/tests/tc_curl_multi.rb
++++ b/tests/tc_curl_multi.rb
+@@ -365,9 +365,9 @@
+ 
+   def test_multi_easy_get_01
+     urls = []
+-    root_uri = 'http://127.0.0.1:9129/ext/'
+-    # send a request to fetch all c files in the ext dir
+-    Dir[File.dirname(__FILE__) + "/../ext/*.c"].each do|path|
++    root_uri = 'http://127.0.0.1:9129/tests/'
++    # send a request to fetch all rb files in the tests dir
++    Dir[File.dirname(__FILE__) + "/../tests/*.rb"].each do|path|
+       urls << root_uri + File.basename(path)
+     end
+     urls = urls[0..(urls.size/2)] # keep it fast, webrick...
+@@ -378,14 +378,14 @@
+ 
+   def test_multi_easy_download_01
+     # test collecting response buffers to file e.g. on_body
+-    root_uri = 'http://127.0.0.1:9129/ext/'
++    root_uri = 'http://127.0.0.1:9129/tests/'
+     urls = []
+     downloads = []
+     file_info = {}
+     FileUtils.mkdir("tmp/")
+ 
+     # for each file store the size by file name
+-    Dir[File.dirname(__FILE__) + "/../ext/*.c"].each do|path|
++    Dir[File.dirname(__FILE__) + "/../tests/*.rb"].each do|path|
+       urls << (root_uri + File.basename(path))
+       downloads << "tmp/" + File.basename(path)
+       file_info[File.basename(path)] = {:size => File.size(path), :path => path}

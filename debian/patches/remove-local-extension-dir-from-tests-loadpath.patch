@@ -1,0 +1,24 @@
+Description: Remove local extension dir from tests load path
+ Fix test segfault due to the wrong ruby version extension gets loaded.
+ This is caused because the ext dir contains the last '.so' library builded
+ and makes his way into the test load path
+
+Author: David Suárez <david.sephirot@gmail.com>
+Bug-Debian: http://bugs.debian.org/720256
+Last-Update: 2019-08-12
+
+--- a/tests/helper.rb
++++ b/tests/helper.rb
+@@ -5,10 +5,10 @@
+ require 'stringio'
+ 
+ $TOPDIR = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+-$EXTDIR = File.join($TOPDIR, 'ext')
++#$EXTDIR = File.join($TOPDIR, 'ext')
+ $LIBDIR = File.join($TOPDIR, 'lib')
+ $:.unshift($LIBDIR)
+-$:.unshift($EXTDIR)
++#$:.unshift($EXTDIR)
+ 
+ require 'curb'
+ begin

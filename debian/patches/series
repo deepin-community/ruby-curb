@@ -1,0 +1,4 @@
+disable_test_requiring_network.patch
+remove-local-extension-dir-from-tests-loadpath.patch
+use-test-files-for-tests.patch
+0004-Fix-broken-test-only-in-ruby-2.7.patch

@@ -1,0 +1,22 @@
+From: Thiago Ribeiro <thiagitosouza@gmail.com>
+Date: Fri, 24 Jan 2020 18:18:40 -0300
+Subject: Fix broken test only in ruby 2.7
+Bug: https://github.com/taf2/curb/issues/405
+
+---
+ tests/tc_curl_easy.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/tc_curl_easy.rb b/tests/tc_curl_easy.rb
+index b9fd3f0..a38de37 100644
+--- a/tests/tc_curl_easy.rb
++++ b/tests/tc_curl_easy.rb
+@@ -21,7 +21,7 @@ class TestCurbCurlEasy < Test::Unit::TestCase
+     end
+     output = File.read(path)
+ 
+-    assert_match('HTTP/1.1 200 OK ', output)
++    assert_match('HTTP/1.1 200 OK', output)
+     assert_match('Host: 127.0.0.1:9129', output)
+   end
+ 
